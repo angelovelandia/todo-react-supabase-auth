@@ -1,8 +1,11 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { supabase } from "../../supabase/client";
+import { useNavigate } from "react-router-dom"
 
 function Login() {
   const [email, setEmail] = useState("");
+
+  const navigate = useNavigate();
 
   const handleSubmit = async(e)=>{
     e.preventDefault();
@@ -15,6 +18,12 @@ function Login() {
       console.log(error)
     }
   }
+
+  useEffect(() => {
+    if(supabase.auth.user()){
+      navigate('/');
+    }
+  }, [navigate])
 
   return (
     <form onSubmit={handleSubmit}>

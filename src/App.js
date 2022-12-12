@@ -3,6 +3,8 @@ import { useEffect } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom'
 import { supabase } from './supabase/client';
 
+import { TaskContextProvider } from './context/TaskContext';
+
 import Login from './pages/login/Login';
 import Home from './pages/login/Home';
 import NotFound from './pages/login/NotFound';
@@ -25,11 +27,13 @@ function App() {
 
   return (
     <div className="App">
-      <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='*' element={<NotFound />} />
-      </Routes>
+      <TaskContextProvider>
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='*' element={<NotFound />} />
+        </Routes>
+      </TaskContextProvider>
     </div>
   );
 }
